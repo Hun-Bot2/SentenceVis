@@ -1,0 +1,39 @@
+# Licensed/private data and validation excerpts
+data/raw/
+data/private/
+data/processed/
+data/cache/
+private/
+secrets/
+
+# API credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Node/build
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+*.log
+
+# Python
+__pycache__/
+.venv/
+*.pyc
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Local evidence outputs; publish only after review
+artifacts/validation/
+artifacts/design/
+artifacts/evaluation/
+artifacts/submission/
