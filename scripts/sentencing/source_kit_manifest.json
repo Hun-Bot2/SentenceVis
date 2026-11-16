@@ -1,0 +1,430 @@
+{
+  "project": "SenteseVis",
+  "created_date": "2026-11-16",
+  "purpose": "historical sentencing guideline source manifest and post-download verification for 2002–2011 criminal appeals research",
+  "facts": {
+    "appeal_decisions_window": "2002–2011",
+    "official_sentencing_guidelines_start": "2009-07-01",
+    "first_crime_groups_2009": 7,
+    "first_crime_groups_2011": 8,
+    "historical_versions_2009_2011": 19
+  },
+  "provenance_note": "The web search service could parse or index these URLs; this ChatGPT container could not download original bytes because DNS failed. No new source PDF is bundled. Terra-reported four PDFs exist in a separate local repository and were not accessible to this session.",
+  "pdf_sources": [
+    {
+      "id": "official-bribery-2009",
+      "filename": "official-bribery-2009.pdf",
+      "crime": "뇌물",
+      "version_label": "2009년 최초",
+      "url": "https://www.scourt.go.kr/sc/krsc/pdf/F2.Crimes_of_Bribery%282009%29.pdf",
+      "type": "historical_guideline_pdf",
+      "remote_page_confirmation": "search_index_text_pdf_verified",
+      "local_download_status": "not_downloaded",
+      "bytes": null,
+      "sha256": null,
+      "parse_status": "not_started",
+      "note": "Verify PDF version/date and scope from original cover and headings after download"
+    },
+    {
+      "id": "official-perjury-2009",
+      "filename": "official-perjury-2009.pdf",
+      "crime": "위증",
+      "version_label": "2009년 최초",
+      "url": "https://scourt.go.kr/sc/krsc/pdf/Crimes%20of%20Perjury%282009%29.pdf",
+      "type": "historical_guideline_pdf",
+      "remote_page_confirmation": "search_index_text_pdf_verified",
+      "local_download_status": "not_downloaded",
+      "bytes": null,
+      "sha256": null,
+      "parse_status": "not_started",
+      "note": "Verify PDF version/date and scope from original cover and headings after download"
+    },
+    {
+      "id": "official-sexual-assault-2010",
+      "filename": "official-sexual-assault-2010.pdf",
+      "crime": "성범죄",
+      "version_label": "2010년 1차 수정",
+      "url": "https://www.scourt.go.kr/sc/krsc/pdf/Crimes%20of%20Sexual%20Assault%282010%29.pdf",
+      "type": "historical_guideline_pdf",
+      "remote_page_confirmation": "search_index_text_pdf_verified",
+      "local_download_status": "not_downloaded",
+      "bytes": null,
+      "sha256": null,
+      "parse_status": "not_started",
+      "note": "Verify PDF version/date and scope from original cover and headings after download"
+    },
+    {
+      "id": "official-homicide-2011",
+      "filename": "official-homicide-2011.pdf",
+      "crime": "살인",
+      "version_label": "2011년 1차 수정",
+      "url": "https://www.scourt.go.kr/sc/krsc/pdf/homicide%282011%29.pdf",
+      "type": "historical_guideline_pdf",
+      "remote_page_confirmation": "search_index_text_pdf_verified",
+      "local_download_status": "not_downloaded",
+      "bytes": null,
+      "sha256": null,
+      "parse_status": "not_started",
+      "note": "Verify PDF version/date and scope from original cover and headings after download"
+    },
+    {
+      "id": "official-abduction-2011",
+      "filename": "official-abduction-2011.pdf",
+      "crime": "약취·유인",
+      "version_label": "2011년 최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/pdf/Crimes%20of%20Abduction%20and%20Inducement%282011%29.pdf",
+      "type": "historical_guideline_pdf",
+      "remote_page_confirmation": "search_index_text_pdf_verified",
+      "local_download_status": "not_downloaded",
+      "bytes": null,
+      "sha256": null,
+      "parse_status": "not_started",
+      "note": "Verify PDF version/date and scope from original cover and headings after download"
+    },
+    {
+      "id": "official-fraud-2011",
+      "filename": "official-fraud-2011.pdf",
+      "crime": "사기",
+      "version_label": "2011년 최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/pdf/9.Crimes%20of%20Fraud.pdf",
+      "type": "historical_guideline_pdf",
+      "remote_page_confirmation": "search_index_text_pdf_verified",
+      "local_download_status": "not_downloaded",
+      "bytes": null,
+      "sha256": null,
+      "parse_status": "not_started",
+      "note": "Verify PDF version/date and scope from original cover and headings after download"
+    },
+    {
+      "id": "official-documents-2011",
+      "filename": "official-documents-2011.pdf",
+      "crime": "공문서",
+      "version_label": "2011년 최초",
+      "url": "https://www.scourt.go.kr/sc/krsc/pdf/11.Crimes%20Related%20to%20Official%20Documents.pdf",
+      "type": "historical_guideline_pdf",
+      "remote_page_confirmation": "search_index_text_pdf_verified",
+      "local_download_status": "not_downloaded",
+      "bytes": null,
+      "sha256": null,
+      "parse_status": "not_started",
+      "note": "Verify PDF version/date and scope from original cover and headings after download"
+    },
+    {
+      "id": "private-documents-2011",
+      "filename": "private-documents-2011.pdf",
+      "crime": "사문서",
+      "version_label": "2011년 최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/pdf/F12.Crimes_of_Private_Documents%282011%29.pdf",
+      "type": "historical_guideline_pdf",
+      "remote_page_confirmation": "search_index_text_pdf_verified",
+      "local_download_status": "not_downloaded",
+      "bytes": null,
+      "sha256": null,
+      "parse_status": "not_started",
+      "note": "Verify PDF version/date and scope from original cover and headings after download"
+    },
+    {
+      "id": "jpri-2025-report",
+      "filename": "jpri-2025-report.pdf",
+      "type": "empirical_study",
+      "url": "https://jpri.scourt.go.kr/fileDownLoad.do?seq=2785",
+      "local_download_status": "reported_downloaded_by_Terra_not_accessible_here",
+      "note": "1998–2023 homicide study, NOT historical guidelines or case-level ground truth"
+    },
+    {
+      "id": "jpri-2025-summary",
+      "filename": "jpri-2025-summary.pdf",
+      "type": "empirical_study_summary",
+      "url": "https://jpri.scourt.go.kr/fileDownLoad.do?seq=2790",
+      "local_download_status": "reported_downloaded_by_Terra_not_accessible_here"
+    },
+    {
+      "id": "kicj-2010-seminar",
+      "filename": "kicj-2010-seminar.pdf",
+      "type": "contextual_statistics",
+      "url": "https://www.kicj.re.kr/boardDownload.es?bid=0007&list_no=11810&seq=1",
+      "local_download_status": "reported_downloaded_by_Terra_not_accessible_here"
+    },
+    {
+      "id": "kicj-2010-evaluation",
+      "filename": "kicj-2010-evaluation.pdf",
+      "type": "empirical_study",
+      "url": "https://kicj.re.kr/boardDownload.es?bid=0029&list_no=12543&seq=1",
+      "local_download_status": "reported_downloaded_by_Terra_not_accessible_here"
+    }
+  ],
+  "html_entry_sources": [
+    {
+      "id": "html-01",
+      "year": 2009,
+      "crime": "강도",
+      "version": "최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/robber/robber_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-02",
+      "year": 2009,
+      "crime": "뇌물",
+      "version": "최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/criterion_02_2009/bribe_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-03",
+      "year": 2009,
+      "crime": "성범죄",
+      "version": "최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/sex_2009/sex_2009_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-04",
+      "year": 2009,
+      "crime": "살인",
+      "version": "최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/murder/murder_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-05",
+      "year": 2009,
+      "crime": "횡령·배임",
+      "version": "최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/criterion_05_2009/embezzlement_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-06",
+      "year": 2009,
+      "crime": "위증",
+      "version": "최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/perjury_2009/perjury_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-07",
+      "year": 2009,
+      "crime": "무고",
+      "version": "최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/criterion_07_2009/falsecharge_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-08",
+      "year": 2010,
+      "crime": "성범죄",
+      "version": "1차 수정",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/sex_2010/sex_2010_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "조회 오류·미확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-09",
+      "year": 2011,
+      "crime": "약취·유인",
+      "version": "최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/capture_2011/capture_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-10",
+      "year": 2011,
+      "crime": "사기",
+      "version": "최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/criterion_10_2011/fraud_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-11",
+      "year": 2011,
+      "crime": "절도",
+      "version": "최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/theft_2011/theft_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "조회 오류·미확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-12",
+      "year": 2011,
+      "crime": "공문서",
+      "version": "최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/criterion_12_2011/officialdoc_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "조회 오류·미확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-13",
+      "year": 2011,
+      "crime": "사문서",
+      "version": "최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/criterion_13_2011/privatedoc_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "조회 오류·미확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-14",
+      "year": 2011,
+      "crime": "공무집행방해",
+      "version": "최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/disturbance_2011/disturbance_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-15",
+      "year": 2011,
+      "crime": "식품·보건",
+      "version": "최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/food_2011/food_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-16",
+      "year": 2011,
+      "crime": "마약",
+      "version": "최초",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/drug_2011/drug_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-17",
+      "year": 2011,
+      "crime": "살인",
+      "version": "1차 수정",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/murder_2011/murder_2011_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "조회 오류·미확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-18",
+      "year": 2011,
+      "crime": "강도",
+      "version": "1차 수정",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/robber_2011/robber_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    },
+    {
+      "id": "html-19",
+      "year": 2011,
+      "crime": "성범죄",
+      "version": "2차 수정",
+      "url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/sex_2011/sex_2011_01.jsp",
+      "source_type": "official_historical_html_entry",
+      "web_index_status": "확인",
+      "download_status": "not_downloaded",
+      "parse_status": "not_started",
+      "caveat": "entry page only; may have multiple content pages; copyright and access conditions require separate review"
+    }
+  ],
+  "manual_access_sources": [
+    {
+      "id": "nanet-2011-book",
+      "name": "2011년 양형기준 단행본, 352쪽",
+      "url": "https://dl.nanet.go.kr/detail/MONO1201113794",
+      "status": "catalog_confirmed_full_text_access_unverified",
+      "action": "Sign in and try 원문보기; if restricted, request reading or interlibrary access; save legally obtainable file"
+    },
+    {
+      "id": "history-2009-book",
+      "name": "2009년 최초 7개 범죄군 양형기준 간행물",
+      "url": "https://history.scourt.go.kr/search/dataDetail.do?dataId=DATA2025-003979",
+      "status": "catalog_confirmed_holding_or_download_unverified",
+      "action": "Check reading/download availability or request source; catalog shows holdings 0 so do not assume availability"
+    },
+    {
+      "id": "annual-2009-appendix",
+      "name": "2009년 양형위원회 연간보고서 부록",
+      "url": "https://sc.scourt.go.kr/sc/krsc/board/BoardViewAction.work?gubun=1&searchOption=&searchWord=&seqnum=203",
+      "status": "attachment_listed_download_link_unverified",
+      "action": "Open in browser, save 4.부록.PDF if permitted; may cover revised sex offenses and explanatory notes"
+    },
+    {
+      "id": "meeting-2011-32",
+      "name": "2011년 3월 21일 제32차 양형위원회 회의 의결 자료",
+      "url": "https://sc.scourt.go.kr/sc/krsc/board/BoardViewAction.work?gubun=3&searchOption=&searchWord=&seqnum=271",
+      "status": "five_attachments_listed_direct_links_unverified",
+      "action": "Open in browser; files 4, 5 are particularly relevant to version creation"
+    },
+    {
+      "id": "hearing-2011-fourth",
+      "name": "2011년 제4차 공청회 양형기준안",
+      "url": "https://www.scourt.go.kr/sc/krsc/board/BoardViewAction.work?gubun=5&searchOption=&searchWord=&seqnum=250",
+      "status": "attachment_listed_direct_link_unverified",
+      "action": "Draft guideline is proposal, do not treat as finalized normative standard"
+    }
+  ],
+  "rules": [
+    "Do not assume a stated issuance date means applicability to a given case; verify transition rules and case facts.",
+    "Pre-2009-07 judgments: no committee guidelines; never backfill current guidelines.",
+    "Historical PDF versions are not interchangeable with current standards.",
+    "Law text links are documentary evidence, not certified ground truth for causes.",
+    "Crawling historical HTML entry pages is excluded from this pack while tool approval is denied or utilization conditions unresolved."
+  ]
+}

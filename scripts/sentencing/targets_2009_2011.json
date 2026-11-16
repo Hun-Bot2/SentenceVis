@@ -1,0 +1,21 @@
+{
+  "source_index_url": "https://sc.scourt.go.kr/sc/krsc/criterion/past/sex_2011/sex_2011_01.jsp",
+  "status": "partial_target_list_not_coverage",
+  "note": "Site menu labels, not verified effective dates. Missing direct URL means unknown; no source files collected.",
+  "targets": [
+    {"label":"구 강도범죄 양형기준", "year":null, "url":null},
+    {"label":"강도범죄 1차 수정 양형기준 2011년", "year":2011, "url":null},
+    {"label":"최초 뇌물범죄 양형기준 2009년", "year":2009, "url":null},
+    {"label":"최초 무고범죄 양형기준 2009년", "year":2009, "url":null},
+    {"label":"최초 횡령·배임범죄 양형기준 2009년", "year":2009, "url":null},
+    {"label":"살인범죄 양형기준 2009년", "year":2009, "url":null},
+    {"label":"살인범죄 1차 수정 양형기준 2011년", "year":2011, "url":null},
+    {"label":"성범죄 양형기준 2009년", "year":2009, "url":null},
+    {"label":"성범죄 1차 수정 양형기준 2010년", "year":2010, "url":null},
+    {"label":"성범죄 2차 수정 양형기준 2011년", "year":2011, "url":"https://sc.scourt.go.kr/sc/krsc/criterion/past/sex_2011/sex_2011_01.jsp"},
+    {"label":"최초 공문서범죄 2011년", "year":2011, "url":null},
+    {"label":"최초 사기범죄 양형기준 2011년", "year":2011, "url":null},
+    {"label":"최초 사문서범죄 2011년", "year":2011, "url":null},
+    {"label":"최초 위증범죄 양형기준", "year":2009, "url":null}
+  ]
+}

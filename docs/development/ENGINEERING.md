@@ -2,7 +2,7 @@
 
 > **2026-11-13 검토:** 구체적인 축·도형·색·뷰 배치·인터랙션은 기존 제안 후보이며 사용자 결정 전이다. 아래 선택 문구는 확정/승인 기록이 아니다. 선택 이유를 에이전트가 대신 결론내리지 않는다. [단계별 힌트](../research/DESIGN_TUTOR.md) · [근거와 확인 범위](../research/RESEARCH_REFERENCES.md) · [검토 기록](../records/REVIEW.md).
 
-**상태:** 개발 기반 F0 구성; 앱 진입·검사 코드만 구현. 데이터 처리기·차트·배포는 미구현. [방법론](DEVELOPMENT_METHOD.md) · [기반 상태](../records/FOUNDATION_STATUS.md) · [Atlas 조사](../research/ENGINEERING_REFERENCE.md).
+**상태:** 개발 기반 F0 구성; 앱 진입·검사 코드만 구현. ZIP inventory·비공개 metadata catalog를 추가했다. 법률 처리기·차트·배포는 미구현. [방법론](DEVELOPMENT_METHOD.md) · [기반 상태](../records/FOUNDATION_STATUS.md) · [Atlas 조사](../research/ENGINEERING_REFERENCE.md).
 **강제 제약:** 과제 PDF에 따라 시각화는 **D3.js 혹은 Vega/Vega-Lite**여야 한다. 본 프로젝트는 **D3.js** 채택.
 
 ## 1. 기술 선택 상태 (D-011 재검토)
@@ -32,7 +32,7 @@ artifacts/ validation / design / evaluation / submission (로컬 출력)
 docs/      명세 / 조사 / 사용자 결정 / 검증 기록
 ```
 
-[소스 의존성 규칙](../../src/README.md)을 따른다. 현재 app 진입과 checks/unit만 구현되어 있고 나머지는 책임을 예약한 빈 폴더다. 이전 SentenceDumbbell 등 구체 차트 파일명은 확정하지 않는다. 기술 도구 기반은 D-010이며 시각화 선택은 D-009를 따른다.
+[소스 의존성 규칙](../../src/README.md)을 따른다. 현재 app 진입·checks/unit·ingest inventory/검증·data 테스트를 구현했다. 나머지 기능 폴더는 책임을 예약한 상태다. 이전 SentenceDumbbell 등 구체 차트 파일명은 확정하지 않는다. 기술 도구 기반은 D-010이며 시각화 선택은 D-009를 따른다.
 
 ## 3. 데이터 파이프라인 — 온라인 서비스와 분리
 
@@ -134,3 +134,7 @@ interface VisFilters {
 ## 9. UI 런타임·가속 기술의 재검토
 
 [FRAMEWORK_RUNTIME_REVIEW.md](../research/FRAMEWORK_RUNTIME_REVIEW.md)의 사실/미확인 구분과 측정 계획을 따른다. React는 과제 필수가 아니며 초기 선택은 비교 근거가 부족했다. 현재 package/source는 임시 scaffold로 보존한다. 실제 상호작용·메모리·번들 비교 전 ‘항상 무겁다/빠르다’고 결론내리지 않는다. Rust/Wasm/WebGPU는 별도 계산·메모리 경계로 검토하며 HTML이나 UI 런타임이 성능을 자동 보장하지 않는다. 핵심 시각화 렌더러 제약은 그대로 지킨다.
+
+## 10. 데이터 조사 도구 (D-012)
+
+[LOCAL_DATA](../specs/LOCAL_DATA.md)의 archive/member hash·원래 경로·표현별 source_id를 유지한다. ZIP을 읽기만 하고 원본 본문을 생성/교정하지 않는다. 비공개 SQLite는 본문 없는 메타데이터 조회용이며 public JSON export가 아니다. `data/` 전체를 기본 Git 제외하고 프로젝트 루트 data 경로를 Vite deny에 포함했다. src/data 모듈을 차단하는 광범위 경로 규칙과 구별한다.

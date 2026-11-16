@@ -5,7 +5,7 @@
 
 **Repository (recommended):** `sentenscope` · **Product name:** SentenScope
 **Track:** SKKU Information Visualization Term Project 2026 · `VIS + X (Application Study)`
-**Status:** 실행 기반 구성 단계. 실제 데이터·시각화는 미구현이며 data linkage/legal reasoning labels는 **unverified**.
+**Status:** 실행 기반 구성 단계. 로컬 데이터 구조 조사·비공개 인덱스는 구현했다. 시각화·심급/피고인 연결·법률 라벨은 **unverified/미구현**.
 
 SentenScope는 한국 형사 판결문의 **1심–항소심** 관계를 연결해, 피고인별 선고 변화와 항소이유·법원의 판단·직권판단·적용 법령을 탐색하고 **판결문 원문에서 근거를 확인**할 수 있게 하는 인터랙티브 시각화 시스템이다. 형량의 타당성을 평가하거나 변경 원인을 자동으로 확정하는 프로그램이 아니다.
 
@@ -32,7 +32,7 @@ SentenScope는 한국 형사 판결문의 **1심–항소심** 관계를 연결�
 
 2026-11-13 문서 검토: [검토 기록과 확인 범위](docs/records/REVIEW.md), [단계별 설계 탐구](docs/research/DESIGN_TUTOR.md), [추가 참고자료](docs/research/RESEARCH_REFERENCES.md).
 
-축·색·도형·배치·상호작용의 선택권은 사용자에게 있다. 아래 인터페이스와 기존 명세의 구체 인코딩은 **기존 제안 후보이며 사용자 결정 전**이다. 에이전트는 사실·자료·비교 실마리를 제공하고 설계 답안을 대신 작성하지 않는다. 과제 PDF는 검토 중 추가되어 5쪽 전체를 대조했다. 제안서 PDF·실데이터는 현재 checkout에 없어 재확인하지 못했다.
+축·색·도형·배치·상호작용의 선택권은 사용자에게 있다. 아래 인터페이스와 기존 명세의 구체 인코딩은 **기존 제안 후보이며 사용자 결정 전**이다. 에이전트는 사실·자료·비교 실마리를 제공하고 설계 답안을 대신 작성하지 않는다. 과제 PDF는 검토 중 추가되어 5쪽 전체를 대조했다. 이는 최초 문서 검토 시점의 기록이다. 이후 제공된 `slides.pdf`와 로컬 ZIP은 [LOCAL_DATA](docs/specs/LOCAL_DATA.md)에서 대조했으며 법률 판단은 미검증이다.
 
 ## 세 가지 분석 과제
 
@@ -78,7 +78,7 @@ V3  1심 ↔ 항소심 원문 비교 ◄───┘
 
 개발 방식은 [DEVELOPMENT_METHOD.md](docs/development/DEVELOPMENT_METHOD.md), 구조 참고 조사는 [ENGINEERING_REFERENCE.md](docs/research/ENGINEERING_REFERENCE.md), 실제 확인 결과는 [FOUNDATION_STATUS.md](docs/records/FOUNDATION_STATUS.md)에 있다. AI/외부 자료 사용은 [ATTRIBUTION.md](docs/records/ATTRIBUTION.md)에 기록한다.
 
-Node.js 22.12 이상이 필요하다. 현재 로컬 검증 환경은 Node 26.8.1이다.
+웹 도구는 Node.js 22.12 이상, 데이터 조사/테스트는 Python 3가 필요하다. 현재 로컬 검증 환경은 Node 26.8.1이다.
 
 ```bash
 npm ci
@@ -91,3 +91,15 @@ npm run dev
 개발 서버는 기본 `http://127.0.0.1:5173`이며 포트 사용 중에는 Vite가 출력하는 실제 주소를 따른다. 현재 화면은 React로 만든 임시 개발 진입 안내뿐이며, 성능 비교나 최종 채택은 완료하지 않았다. D3는 설치 기반만 준비했고 차트·시각적 인코딩·실제 판결 데이터는 연결하지 않았다. `npm run preview`로 빌드 결과를 로컬에서 확인할 수 있다.
 
 폴더 책임: [src](src/README.md), [scripts](scripts/README.md), [tests](tests/README.md), [data](data/README.md), [public](public/README.md), [artifacts](artifacts/README.md). 비공개 원본은 data/raw·private·processed에 보관하며 공개 export를 검토하기 전 `publicDir`을 활성화하지 않는다. 파이프라인 폴더는 현재 자리만 마련되어 있다.
+
+## 제공한 데이터 조사하기
+
+`slides.pdf`와 로컬 4종 데이터셋을 대조한 [구조·수량·조회 안내](docs/specs/LOCAL_DATA.md)를 먼저 읽습니다. 원본 ZIP은 변경하지 않았으며 자동 공개하지 않습니다.
+
+```bash
+python3 scripts/ingest/inventory.py scan --output data/private/inventory/new-snapshot
+python3 scripts/ingest/verify_inventory.py data/private/inventory/new-snapshot
+npm run test:data
+```
+
+기존 v4 스냅샷은 `data/private/inventory/2026-11-13-v4/`에 있습니다. source_id로 원래 JSON을 비공개 경로에 꺼내는 명령과 조사 SQL은 안내 문서에 있습니다. 실제 법률 본문은 브라우저에 연결하지 않았습니다.

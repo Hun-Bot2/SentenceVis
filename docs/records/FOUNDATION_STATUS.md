@@ -51,3 +51,9 @@ React는 현재 임시 진입에만 사용되며 최종 채택은 D-011의 미�
 2026-11-13에 `npm run check`, `npm test`(5개), `npm run build`를 다시 실행해 통과했다. Markdown 검사는 28개 파일과 로컬 파일 링크 109개를 확인했다(외부 URL/anchor 제외). 비공개 HTTP 차단은 이전 단계의 확인 기록이며 data/cache 추가 규칙의 HTTP 검사는 이번에 별도로 실행하지 않았다.
 
 현재 개발 진입의 production JS `index-DjBcpgYm.js`는 219,849 bytes이며 Node v26.8.1의 `gzipSync(buffer)` 기본 설정으로 68,136 bytes를 관측했다. `dist/assets`의 파일을 readFile한 길이와 gzipSync 결과 길이를 읽은 값이다. 실제 HTTP 전송량·React 패키지 단독 크기·사용자 지연/메모리·Vanilla 대비 효과는 아니다. Vite 로그의 압축 추정치와 도구/옵션이 다를 수 있다. D3 차트가 없는 임시 진입의 전체 JS이므로 최종 시스템 크기로 일반화하지 않는다.
+
+## 후속 상태 — 로컬 ZIP 조사 도구
+
+2026-11-13에 사용자 제공 slides.pdf와 4종 AI-Hub ZIP을 조사하고 [LOCAL_DATA](../specs/LOCAL_DATA.md)의 v4 비공개 인덱스를 생성했다. 핵심 JSON 전체 파싱·원본 ZIP 137개 hash 독립 대조·라벨 분류와 DB 참조 대조가 통과했다. 일반 코드/링크 검사·기존 Node 테스트 5개·새 합성 ZIP 테스트 9개·프로덕션 빌드가 통과했다. 루트 data의 합성 파일은 일반 URL과 /@fs URL 모두 HTTP 403이며 본문 marker가 응답에 없음을 확인하고 정리했다. 원자료를 HTTP로 제공한 시험은 아니다.
+
+Vite 설정의 node:url import에 필요한 타입 선언이 없어 최초 typecheck가 실패했고 devDependency @types/node를 고정 설치한 뒤 재검사했다. 개발 서버의 root data 차단과 Git 제외 범위를 동기화했다. 실제 법률 검증·공개 export·차트는 미구현이다. 기존 MCP_WORKFLOW 사용자 변경은 보존하고 깨진 상대 링크 네 곳만 보정했다.

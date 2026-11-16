@@ -1,13 +1,14 @@
 # 문서 안내
 
-**현재 상태:** F0 개발 진입만 구현했다. D3 시각화·판결 데이터·사용자 평가·GPU/Wasm 기능은 미구현이다. UI 런타임은 재검토 중이며 현재 React scaffold의 존재가 최종 채택 근거는 아니다.
+**현재 상태:** F0 개발 진입만 구현했다. 로컬 ZIP 조사·비공개 메타데이터 인덱스를 추가했다. D3 시각화·법률 추출/정렬·사용자 평가·GPU/Wasm 기능은 미구현이다. UI 런타임은 재검토 중이며 현재 React scaffold의 존재가 최종 채택 근거는 아니다.
 
 | 구분 | 문서 | 역할 |
 |---|---|---|
 | 공식 조건 | [REQUIREMENTS](specs/REQUIREMENTS.md) | 원본 과제에서 확인한 요구사항; 로컬 PDF·구두 피드백의 출처 구분 |
 | 연구/데이터 명세 | [PAPER](specs/PAPER.md), [DATA](specs/DATA.md), [VALIDATION](specs/VALIDATION.md) | RQ·grain·검증·provenance 계약 |
-| 시각 설계/평가 | [VISUAL_DESIGN](specs/VISUAL_DESIGN.md), [EVALUATION](specs/EVALUATION.md) | 기존 후보와 평가할 가설; 사용자 설계 결정 전 |
-| 문헌·탐구 | [RELATED_WORK](research/RELATED_WORK.md), [REFERENCES](research/RESEARCH_REFERENCES.md), [TUTOR](research/DESIGN_TUTOR.md) | 사실 출처·확인 범위·단계별 힌트 |
+| 로컬 데이터 조사 | [LOCAL_DATA](specs/LOCAL_DATA.md) | slides.pdf 대조·실제 ZIP 구조·분모·품질·조사 SQL |
+| 시각 설계/평가 | [VISUAL_DESIGN](specs/VISUAL_DESIGN.md), [EVALUATION](specs/EVALUATION.md), [공개 계층·상태 제안](specs/DISCLOSURE_STATES.md) | 기존 후보와 평가할 가설; 사용자 설계 결정 전 |
+| 문헌·탐구 | [RELATED_WORK](research/RELATED_WORK.md), [REFERENCES](research/RESEARCH_REFERENCES.md), [TUTOR](research/DESIGN_TUTOR.md), [색 결정](research/COLOR_DECISION_WORKSHEET.md), [단일·다중 뷰](research/SINGLE_VS_MULTI_VIEW.md) | 사실 출처·확인 범위·단계별 힌트 |
 | 기술 조사 | [Atlas](research/ENGINEERING_REFERENCE.md), [UI/WebGPU/Wasm 검토](research/FRAMEWORK_RUNTIME_REVIEW.md) | 참고 구조와 기술적 주장 교정; 실측 우열 아님 |
 | 개발/운영 | [ENGINEERING](development/ENGINEERING.md), [METHOD](development/DEVELOPMENT_METHOD.md), [MCP_WORKFLOW](development/MCP_WORKFLOW.md) | 모듈 책임·개발 순서·데이터 운영 계획 |
 | 일정/산출물 | [ROADMAP](planning/ROADMAP.md), [TASK](planning/TASK.md), [PRESENTATION](planning/PRESENTATION.md) | 기말 일정과 별도의 학회 확장 계획 |

@@ -1,6 +1,8 @@
 # DATA — 데이터셋 구성·추상화·API·공개 범위
 
-**상태:** source inventory + planned schema [PROPOSAL + OFFICIAL + PLAN]. `slides(1).pdf` p.2·p.7의 수치는 **제안 당시 자동 추출 결과**이며 저장소에서 아직 재현/검증하지 않았다.
+**현재 확인:** [LOCAL_DATA.md](LOCAL_DATA.md)에 `slides.pdf`와 로컬 ZIP의 실제 구조/집계를 기록했다. 구조 조사와 비공개 인덱스는 구현했으며, 사건/피고인 연결·법률 라벨·공개 권리는 미검증이다.
+
+**이하 초기 설계 상태:** source inventory + planned schema [PROPOSAL + OFFICIAL + PLAN]. `slides(1).pdf` p.2·p.7의 수치는 **제안 당시 자동 추출 결과**이며 저장소에서 아직 재현/검증하지 않았다.
 
 ## 1. 질문에서 데이터로
 
@@ -143,3 +145,41 @@ CasePair (1심↔항소심 연결 후보)
 `[RESEARCH]` [AI-Hub 공식 소개](https://aihub.or.kr/aihubdata/data/view.do?aihubDataSe=data&currMenu=511&dataSetSn=71968)의 현재 규모 표기는 제안서와 다르다. 소개 표의 건수/비율 및 일부 필드 설명에도 내부 불일치가 있다. 자세한 열람 범위는 [추가 참고자료 F9](../research/RESEARCH_REFERENCES.md#f9-데이터-출처와-미해결-항목)를 따른다. 공개 소개값을 로컬 보유량이나 검증된 비교 건수로 바꾸지 않는다. LLM 관련 소개만으로 모든 문서를 합성으로 분류하지 않는다.
 
 문서–피고인별 선고의 grain, 독립 relation 계약, 검토/판정 구별, 출처 명시성과 추출 방법의 차원, offset 기준은 [검토 기록](../records/REVIEW.md)의 미해결 사항이다. 기존 JSON은 확정 계약이 아니며 이번 검토에서 실제 파일을 검증/변환하지 않았다.
+
+## 9. 로컬 조사 계약과 초기 도메인 계약의 구별
+
+[LOCAL_DATA](LOCAL_DATA.md)의 `archives/documents/sections/pairing_candidates/issues`는 실제 입력을 조사하는 비공개 인덱스다. 위의 CasePair/Defendant/Ground/Evidence는 아직 확정하지 않은 분석용 도메인 설계다. 원천↔라벨 18,900개 대응 후보를 1심↔항소심 쌍으로 변환하지 않는다. 원천/라벨을 따로 보존하며 공급자 ID는 단독 고유 키가 아니다. 현재 형사 조사 집합의 2,700개는 명시적 라벨 분류 집합이고, 동일 피고인의 비교 가능한 선고 2,700건을 뜻하지 않는다.
+
+## 결측 상태 (value status) — 2026-11-16
+
+**원칙:** 화면에 나가는 모든 값은 `{value, status}` 형태로 둔다. `null`이나 빈 목록만으로 "없음"을 표현하지 않는다. 상태 어휘는 `scripts/align/build_dataset.py`의 `STATUSES`가 기준이며, 파이프라인이 행마다 `fields`에 기록한다. 이 상태는 검증 상태(`verification_status`, VALIDATION §6)와 **별개의 축**이다. 예를 들어 `observed`인 값도 아직 `unreviewed`일 수 있다.
+
+| status | 뜻 | 화면에서 혼동하면 안 되는 것 |
+|---|---|---|
+| `observed` | 주문 원문에 명시된 값 (span 있음) | — |
+| `derived` | 원문 규칙으로 유도한 값 (항소기각 → 원심 형 유지) | 법원이 그 숫자를 다시 쓴 것은 아니다 |
+| `absent_in_text` | 주문을 해석했지만 그 조항이 없음 (예: 집행유예 조항 없음) | 파서가 놓쳤을 가능성은 남는다. 2026-11-16 전수 대조에서 85개 문서의 주문에 `유예`가 없음을 확인했다 |
+| `not_applicable` | 형의 종류상 해당 없음 (벌금·무죄·금고) | **0개월이 아니다** |
+| `not_scalar` | 값은 있지만 숫자 하나로 만들 수 없음 (복수 형, 일부 집행유예) | 합산하거나 첫 값만 쓰지 않는다 |
+| `not_extracted` | 원문은 있지만 자동 추출 실패 | 원문에 없다는 뜻이 아니다 |
+| `unresolved` | 공동피고인 대응 등 사람 검토 전 | 값을 임의로 배정하지 않는다 |
+| `not_in_corpus` | 관련 판결이 로컬 AI-Hub 자료에 없음 | **그 절차(상고·원심)가 없었다는 뜻이 아니다** |
+| `withheld` | 자료는 있으나 개인정보 때문에 원문 표시 보류 (115에만 있는 문서) | 원문이 없다는 뜻이 아니다 |
+
+실행 `run-20261116q`의 분포(피고인 행 589개, 자동 후보, 미검증):
+
+| 필드 | observed | derived | absent_in_text | not_applicable | not_scalar | not_extracted | unresolved | not_in_corpus | withheld |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 원심 징역 | 72 | | | 48 | 3 | 5 | 461 | | |
+| 원심 집행유예 | 31 | | 45 | 47 | | 5 | 461 | | |
+| 항소 징역 | 57 | 12 | | 53 | 2 | 4 | 461 | | |
+| 항소 집행유예 | 24 | 7 | 40 | 52 | 1 | 4 | 461 | | |
+| 대법원 결과 | 550 | | | | | 18 | | 21 | |
+| 원문 (원심 / 항소) | 579 / 558 | | | | | | | | 10 / 31 |
+
+- **원심이 없는 항소심 1,778건**은 `unpaired_appeals.jsonl`에 따로 둔다. 원심 판결은 1,412건이 `not_in_corpus`, 366건이 `not_extracted`다(대부분 `【원심판결】` 절 없음). 원문 상태는 742건이 `observed`, 1,036건이 `withheld`다. 이 항소심들은 피고인 행에 섞지 않는다.
+- **표시 방식(mark·색·텍스처·범례 문구)은 아직 정하지 않았다.** 어떤 상태를 서로 구분하고 어떤 상태를 합칠지를 포함해 사용자가 결정한다(AGENTS.md §7, D-009). 이 표는 그 결정에 쓸 데이터 쪽 입력이다.
+
+## 2026-11-16 작업 우선순위
+
+원본 보존형 `data/priority/` 분류와 명시 방향 규칙의 교정은 [대조 기록](../records/DATA_PRIORITY_REVIEW.md)을 따른다. 최우선은 12·115 판결 원문, 보통은 법령·지식베이스 및 보완 코퍼스, 보충은 통계·연구·뉴스·미검토 묶음이다. 검증 수준을 뜻하지 않는다.

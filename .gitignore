@@ -1,3 +1,7 @@
+# Everything supplied under data is private by default
+/data/*
+!/data/README.md
+
 # Licensed/private data and validation excerpts
 data/raw/
 data/private/

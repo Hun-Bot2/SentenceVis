@@ -1,0 +1,123 @@
+{
+  "_about": "Single source of truth for V1/V3 marks (D-015). viewBox 0 0 20 20. 'fill_variant': how first instance (1심, hollow/thin) and second instance (2심, filled/thick) differ. 'decided_by': user = chosen by the user in the 2026-11-16 Claude Code session; claude_delegated = chosen by Claude because the user delegated the remaining marks ('나머지 도형은 겹치지 않게 결정해서 최종 문서 제공'). Authored with Claude Code; see docs/records/ATTRIBUTION.md.",
+  "glyphs": {
+    "observed": {
+      "label": "줄 그은 문서 — 주문에 명시된 조항 값",
+      "decided_by": "user",
+      "fill_variant": "doc",
+      "svg": "<path d='M4 2.5H12L16 6.5V17.5H4Z' fill='F' stroke='C' stroke-width='1.4' stroke-linejoin='round'/><path d='M12 2.5V6.5H16' fill='none' stroke='K' stroke-width='1'/><path d='M6.5 9.5H13.5M6.5 12H13.5M6.5 14.5H11' stroke='K' stroke-width='1.1'/>",
+      "instance_note": "1심 = 빈 문서와 본문색 줄, 2심 = 채운 문서와 배경색 줄 (사용자 결정 D1, 2026-11-16; 천칭에서 변경)"
+    },
+    "observed_merged": {
+      "label": "같은 개월의 1심·2심 합침 (채운 문서 + =)",
+      "decided_by": "user",
+      "fill_variant": "none",
+      "svg": "@observed:filled+<path d='M21.5 6.5h7M21.5 13.5h7' stroke='C' stroke-width='3'/>",
+      "instance_note": "= 를 도형 오른쪽(x 21.5–28.5, 굵기 3)에 둠 (Claude 위임 보정; 채운 문서는 잉크가 많아 = 를 키움)"
+    },
+    "derived": {
+      "label": "화살촉 점 — 규칙으로 유도",
+      "decided_by": "user",
+      "fill_variant": "dot",
+      "svg": "<path d='M3 10H9M6 7L9 10L6 13' fill='none' stroke='C' stroke-width='1.4'/><circle cx='13' cy='10' r='3.5' fill='F' stroke='C' stroke-width='1.4'/>"
+    },
+    "not_scalar": {
+      "label": "∅ — 숫자 하나로 표시 불가 (형마다 하나씩)",
+      "decided_by": "user",
+      "fill_variant": "stroke",
+      "svg": "<circle cx='10' cy='10' r='6' fill='none' stroke='C' stroke-width='W'/><line x1='4' y1='17' x2='16' y2='3' stroke='C' stroke-width='W'/>"
+    },
+    "absent_in_text": {
+      "label": "문서 + X 덮개 — 주문에 조항 없음 (집행유예 글자 앞 작은 도형)",
+      "decided_by": "user",
+      "fill_variant": "none",
+      "svg": "@observed+<path d='M2.5 2.5L17.5 17.5M17.5 2.5L2.5 17.5' stroke='BG' stroke-width='5' stroke-linecap='round'/><path d='M2.5 2.5L17.5 17.5M17.5 2.5L2.5 17.5' stroke='C' stroke-width='2.4' stroke-linecap='round'/>",
+      "instance_note": "심급 구분 없음 (Claude 위임 보정): 이 도형은 집행유예 글자 앞에서만 쓰이고, 글자의 \"1심 → 2심\" 순서가 심급을 알려 준다. 채움 차이는 12px에서 유사도 0.956으로 보이지 않았다. X 덮개 굵기 2.4·테두리 5 (Claude 위임 보정; 문서 1심과 0.631이라 강화)."
+    },
+    "not_applicable": {
+      "label": "X — 형 종류상 해당 없음",
+      "decided_by": "user",
+      "fill_variant": "stroke",
+      "svg": "<path d='M5 5L15 15M15 5L5 15' stroke='C' stroke-width='W' stroke-linecap='round'/>"
+    },
+    "not_extracted": {
+      "label": "? — 자동 추출 실패",
+      "decided_by": "user",
+      "fill_variant": "stroke",
+      "svg": "<path d='M6.5 7a3.5 3.5 0 1 1 5 3.2c-1 .5-1.5 1.1-1.5 2.3M10 15.5v1' fill='none' stroke='C' stroke-width='W' stroke-linecap='round'/>"
+    },
+    "supreme_dismissed": {
+      "label": "자물쇠 — 상고기각, 2심 확정",
+      "decided_by": "user",
+      "fill_variant": "none",
+      "svg": "<rect x='5' y='9' width='10' height='8' rx='1.5' fill='none' stroke='C' stroke-width='1.4'/><path d='M7 9V6.5a3 3 0 0 1 6 0V9' fill='none' stroke='C' stroke-width='1.4'/>"
+    },
+    "supreme_reversed": {
+      "label": "⟳ — 파기환송, 2심은 최종 형이 아님 (회전 방향 반전, 사용자 결정 2026-11-16)",
+      "decided_by": "user",
+      "fill_variant": "none",
+      "svg": "<g transform='translate(20 0) scale(-1 1)'><path d='M15 10a5 5 0 1 1-1.5-3.6' fill='none' stroke='C' stroke-width='1.5'/><path d='M14 3.5V7H10.5' fill='none' stroke='C' stroke-width='1.5'/></g>"
+    },
+    "appeal_not_final": {
+      "label": "2심 점 위 가운데 작은 ⟲ — 이 2심 형은 대법원에서 파기됨",
+      "decided_by": "user",
+      "fill_variant": "none",
+      "svg": "@supreme_reversed@scale0.55@at4.5,-10",
+      "instance_note": "위치: 2심 도형 바로 위 가운데 (사용자 결정 2026-11-16, 오른쪽 위에서 변경). 행 간격 약 20px 필요. 크기 0.55배는 Claude(위임)."
+    },
+    "judgment_document": {
+      "label": "의사봉 — 판결 문서 자체 (V3)",
+      "decided_by": "user",
+      "fill_variant": "none",
+      "svg": "<g transform='rotate(-35 10 10)'><rect x='5' y='3' width='10' height='5' rx='1' fill='none' stroke='C' stroke-width='1.4'/><line x1='10' y1='8' x2='10' y2='16' stroke='C' stroke-width='1.6'/></g><line x1='3' y1='18' x2='11' y2='18' stroke='C' stroke-width='1.4'/>"
+    }
+  },
+  "text_marks": {
+    "supreme_mixed": {
+      "text": "일부 파기",
+      "decided_by": "user"
+    },
+    "suspension_label": {
+      "pattern": "<도형> 실형 → 유예 N년 / 유예 N년 유지",
+      "decided_by": "user"
+    },
+    "unresolved_row": {
+      "pattern": "▸ <사건번호> · 공동피고인 n명 · 정렬 전",
+      "decided_by": "user"
+    },
+    "withheld_text": {
+      "text": "개인정보 보호로 가림",
+      "decided_by": "user"
+    },
+    "outside_column_header": {
+      "pattern": "벌금 n · 무죄 n · 금고 n · 추출 실패 n (보이는 행 기준, 0은 생략)",
+      "decided_by": "user"
+    }
+  },
+  "lines": {
+    "dumbbell": {
+      "dash": "solid taper",
+      "width": "each end: 1 + 5 × months / 240 px (1–6px)",
+      "meaning": "1심 → 2심 징역 개월. 늘어난 쪽으로 굵어지는 쐐기. 1심→2심 단계 전환 시 애니메이션",
+      "decided_by": "user (taper + animation, 2026-11-16); width range claude_delegated"
+    },
+    "mixed_row_connector": {
+      "dash": "4 2",
+      "meaning": "축 위 점 ↔ 축 바깥 칸 표시 (징역 → 무죄 등)",
+      "decided_by": "user (dashed); pattern claude_delegated"
+    },
+    "supreme_link": {
+      "dash": "solid",
+      "meaning": "행 → 대법원 자리",
+      "decided_by": "claude_delegated"
+    },
+    "supreme_link_not_in_corpus": {
+      "dash": "solid then gap then 1 3",
+      "meaning": "대법원 판결이 로컬 AI-Hub 자료에 없음 (N2)",
+      "decided_by": "user"
+    }
+  },
+  "retired": {
+    "scales": "천칭: 2026-11-16 값 상태(observed)에서 제외. 사용자가 무거움은 덤벨 선 굵기, 조항 값은 문서로 바꿈. 다른 용도 미정."
+  }
+}

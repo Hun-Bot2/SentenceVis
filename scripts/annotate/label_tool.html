@@ -1,0 +1,132 @@
+<!doctype html>
+<!-- AI-assisted: written with Claude (Anthropic) in Claude Code, 2026-11-16. Local labeling tool; private data, never publish. -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SentenScope 라벨링</title>
+<style>
+  :root { --bg:#fbfbfa; --fg:#1d1d1b; --muted:#6b6b66; --line:#deddd8; --hl:#ffe58a; --ok:#2f7d4f; --bad:#b3402e; --card:#fff; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#171716; --fg:#ecebe6; --muted:#a09f99; --line:#34332f; --hl:#6b5a12; --card:#21201e; } }
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.6 system-ui, "Apple SD Gothic Neo", sans-serif; }
+  header { position:sticky; top:0; background:var(--bg); border-bottom:1px solid var(--line); padding:10px 16px; display:flex; gap:12px; align-items:center; flex-wrap:wrap; z-index:2 }
+  main { display:grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 54px) }
+  nav { border-right:1px solid var(--line); overflow:auto; max-height: calc(100vh - 54px); position:sticky; top:54px }
+  nav button { display:block; width:100%; text-align:left; border:0; border-bottom:1px solid var(--line); background:none; color:inherit; padding:6px 12px; font:13px ui-monospace, monospace; cursor:pointer }
+  nav button.on { background:var(--card); font-weight:700 }
+  nav .done::after { content:" ✓"; color:var(--ok) }
+  section { padding:16px 20px; max-width: 1100px }
+  .meta { color:var(--muted); font-size:13px }
+  .views { display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:12px; margin:12px 0 }
+  .view { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:10px 12px; white-space:pre-wrap; max-height:480px; overflow:auto; font-size:14px }
+  .view h4 { margin:0 0 6px; font-size:13px; color:var(--muted) }
+  mark { background:var(--hl); color:inherit }
+  .claim { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:10px 12px; margin:8px 0 }
+  .claim code { font-size:13px }
+  fieldset { border:1px solid var(--line); border-radius:8px; margin:8px 0; padding:8px 12px }
+  label { margin-right:14px; white-space:nowrap }
+  textarea, input[type=text] { width:100%; font:inherit; background:var(--card); color:inherit; border:1px solid var(--line); border-radius:6px; padding:6px }
+  .row { display:flex; gap:8px; margin-top:10px }
+  .row button { padding:8px 14px; border-radius:6px; border:1px solid var(--line); background:var(--card); color:inherit; cursor:pointer; font:inherit }
+  .row button.primary { background:var(--fg); color:var(--bg) }
+  @media (max-width: 760px) { main { grid-template-columns: 1fr } nav { position:static; max-height:180px } }
+</style>
+</head>
+<body>
+<header>
+  <strong>SentenScope 라벨링</strong>
+  <span class="meta" id="progress"></span>
+  <span style="flex:1"></span>
+  <label>검토자 <input type="text" id="reviewer" style="width:140px"></label>
+</header>
+<main>
+  <nav id="list"></nav>
+  <section id="pane"><p class="meta">왼쪽에서 항목을 고르세요. 원문을 보고 판단이 어려우면 '불확실'을 선택합니다.</p></section>
+</main>
+<script>
+const $ = (s, el = document) => el.querySelector(s);
+let items = [], labels = {}, cur = 0;
+try { $('#reviewer').value = localStorage.getItem('reviewer') || ''; } catch (e) {}
+$('#reviewer').addEventListener('change', e => { try { localStorage.setItem('reviewer', e.target.value); } catch (_) {} });
+
+const esc = s => String(s ?? '').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function viewHTML(v) {
+  let t = v.text || '';
+  if (v.hl) t = esc(t.slice(0, v.hl[0])) + '<mark>' + esc(t.slice(v.hl[0], v.hl[1])) + '</mark>' + esc(t.slice(v.hl[1]));
+  else t = esc(t);
+  return `<div class="view"><h4>${esc(v.title || '')}${v.truncated ? ' (잘림)' : ''}</h4>${t}</div>`;
+}
+const radio = (name, opts, val) => opts.map(([v, l]) => `<label><input type="radio" name="${name}" value="${v}" ${val === v ? 'checked' : ''}> ${l}</label>`).join('');
+const YN = [['yes','맞음'],['no','틀림'],['unsure','불확실']];
+const YNA = [['yes','맞음'],['no','틀림'],['na','해당 없음'],['unsure','불확실']];
+const fmt = o => o == null ? '없음' : o;
+const mo = o => o == null ? '<b>없음</b>' : `<b>${o}</b>개월`;
+// value + status from the pipeline's `fields` block; the status name is shown verbatim
+const fs = f => !f ? '<b>?</b>' : (f.value == null ? `<code>[${f.status}${f.reason ? ': ' + esc(f.reason) : ''}]</code>` : `<b>${esc(f.value)}</b>개월 <code>${f.status}${f.reason ? ': ' + esc(f.reason) : ''}</code>`);
+
+function claimHTML(it) {
+  const r = it.record;
+  if (it.task === 'link' && it.frame === 'supreme_links') return `<div class="claim">자동 연결: 대법원 <code>${esc(it.appeal.case_no)}</code> (${it.appeal.date}) ← 항소심 <code>${esc(it.trial.case_no)}</code> (${esc(it.trial.court)}, ${it.trial.date})<br>자동 추출 결과 <code>${esc((r.parsed_outcome||[]).join(' · ') || '없음')}</code></div>`;
+  if (it.task === 'link') return `<div class="claim">자동 연결: 항소 <code>${esc(it.appeal.case_no)}</code> (${esc(it.appeal.court)}, ${it.appeal.date}) ← 원심 <code>${esc(it.trial.case_no)}</code> (${esc(it.trial.court)}, ${it.trial.date})<br>규칙 상태 <code>${r.link_status}</code> · 실패 검사 <code>${(r.failed_checks||[]).join(', ') || '없음'}</code></div>`;
+  if (it.task === 'v1') return `<div class="claim">원심 <code>${esc(it.trial.case_no)}</code> → 항소 <code>${esc(it.appeal.case_no)}</code> (단독 피고인 자동 정렬)<br>
+    원심: 징역 ${r.fields ? fs(r.fields.trial.prison_months) : mo(r.trial.prison_months)} · 집행유예 ${r.fields ? fs(r.fields.trial.suspension_months) : mo(r.trial.suspension_months)}<br>
+    항소: 징역 ${r.fields ? fs(r.fields.appeal.prison_months) : mo(r.appeal.prison_months)} · 집행유예 ${r.fields ? fs(r.fields.appeal.suspension_months) : mo(r.appeal.suspension_months)}<br>
+    대법원: ${r.fields ? (r.fields.supreme_outcome.value ? esc(r.fields.supreme_outcome.value.map(a => a.action + (a.scope && a.scope !== 'all' ? '(' + a.scope + ')' : '')).join(' · ')) + ' <code>observed</code>' : `<code>[${r.fields.supreme_outcome.status}]</code>`) : '?'} <span class="meta">(${r.appeal_basis})</span></div>`;
+  if (it.task === 'cue') return `<div class="claim">단서 유형 <code>${r.cue_type}</code> · 라벨 <code>${esc(r.label)}</code> · 제기자 추정 <code>${fmt(r.origin_hint)}</code> · 항소이유 요지 안 <code>${r.in_grounds_summary}</code>
+    ${r.relation ? `<br>제안 관계: 이 판단 → <code>${esc(r.relation.target_label)}</code> (${r.relation.basis})` : ''}</div>`;
+  if (it.task === 'doc') return `<div class="claim">자동 추출된 항소이유 유형: <code>${r.extracted_grounds.join(', ') || '없음'}</code> · 직권 단서 <code>${r.extracted_ex_officio}</code><br><span class="meta">아래에서 원문에 실제로 제기된 유형을 직접 표시하세요(자동 결과와 무관하게).</span></div>`;
+}
+function formHTML(it, L) {
+  const v = k => L?.answer?.[k];
+  if (it.task === 'link' && it.frame === 'supreme_links') return `<fieldset><legend>이 항소심 판결이 대법원 판결의 원심판결과 같은 판결인가?</legend>${radio('link', YN, v('link'))}</fieldset>
+    <fieldset><legend>자동 추출한 대법원 결과(파기환송/상고기각과 범위)가 주문과 맞는가?</legend>${radio('outcome', YN, v('outcome'))}</fieldset>`;
+  if (it.task === 'link') return `<fieldset><legend>이 원심 문서가 항소심이 심리한 원심판결과 같은 판결인가?</legend>${radio('link', YN, v('link'))}</fieldset>`;
+  if (it.task === 'v1') return ['same_person:같은 사람(단독 피고인) 대응','trial_months:원심 징역 개월','trial_susp:원심 집행유예','appeal_months:항소 징역 개월','appeal_susp:항소 집행유예']
+    .map(s => { const [k, t] = s.split(':'); return `<fieldset><legend>${t}</legend>${radio(k, YN, v(k))}</fieldset>`; }).join('');
+  if (it.task === 'cue') return `<fieldset><legend>단서 유형이 문맥상 맞는가?</legend>${radio('type', YN, v('type'))}</fieldset>
+    <fieldset><legend>제기자 추정이 맞는가?</legend>${radio('origin', YNA, v('origin'))}</fieldset>
+    <fieldset><legend>제안 관계가 맞는가?</legend>${radio('relation', YNA, v('relation'))}</fieldset>`;
+  if (it.task === 'doc') {
+    const G = ['사실오인','법리오해','양형부당','심신장애','채증법칙','절차위반','기타'];
+    const sel = v('grounds') || [];
+    return `<fieldset><legend>항소이유 요지에 실제 제기된 유형 (모두 선택)</legend>${G.map(g => `<label><input type="checkbox" name="grounds" value="${g}" ${sel.includes(g) ? 'checked' : ''}> ${g}</label>`).join('')}</fieldset>
+      <fieldset><legend>법원의 직권 판단이 있는가?</legend>${radio('ex_officio', [['yes','있음'],['no','없음'],['unsure','불확실']], v('ex_officio'))}</fieldset>`;
+  }
+}
+function render() {
+  const it = items[cur], L = labels[it.item_id];
+  $('#pane').innerHTML = `<div class="meta">${it.item_id} · 표본틀 ${it.frame} (N=${it.frame_size})</div>${claimHTML(it)}
+    <div class="views">${it.views.map(viewHTML).join('')}</div>
+    <form id="f">${formHTML(it, L)}<fieldset><legend>메모 (틀렸다면 올바른 값/이유)</legend><textarea name="note" rows="2">${esc(L?.note || '')}</textarea></fieldset>
+    <div class="row"><button class="primary" type="submit">저장 후 다음</button><button type="button" id="prev">이전</button></div></form>`;
+  $('#f').onsubmit = save; $('#prev').onclick = () => { cur = Math.max(0, cur - 1); paint(); };
+  const m = $('#pane mark'); if (m) m.scrollIntoView({ block: 'center' });
+}
+async function save(e) {
+  e.preventDefault();
+  const reviewer = $('#reviewer').value.trim();
+  if (!reviewer) { alert('검토자 이름을 입력하세요.'); return; }
+  const fd = new FormData(e.target), answer = {};
+  for (const [k, v] of fd.entries()) if (k !== 'note') { if (k === 'grounds') (answer.grounds ||= []).push(v); else answer[k] = v; }
+  const it = items[cur];
+  if (it.task === 'doc' && !answer.grounds) answer.grounds = [];
+  const rec = { item_id: it.item_id, task: it.task, reviewer, answer, note: fd.get('note') || '' };
+  const r = await fetch('/api/label', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(rec) });
+  if (!r.ok) { alert('저장 실패: ' + await r.text()); return; }
+  labels[it.item_id] = rec; cur = Math.min(items.length - 1, cur + 1); paint();
+}
+function paint() {
+  $('#list').innerHTML = items.map((it, i) => `<button class="${i === cur ? 'on' : ''} ${labels[it.item_id] ? 'done' : ''}" data-i="${i}">${it.item_id}</button>`).join('');
+  $('#list').querySelectorAll('button').forEach(b => b.onclick = () => { cur = +b.dataset.i; paint(); });
+  $('#progress').textContent = `${Object.keys(labels).length} / ${items.length} 완료`;
+  render();
+}
+(async () => {
+  items = await (await fetch('/api/items')).json();
+  labels = await (await fetch('/api/labels')).json();
+  const first = items.findIndex(it => !labels[it.item_id]); cur = first < 0 ? 0 : first; paint();
+})();
+</script>
+</body>
+</html>

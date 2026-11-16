@@ -68,3 +68,9 @@ README, AGENTS와 `docs/`의 기존 12개 명세를 읽었다. 공개 논문 초
 2026-11-13 사용자 요청으로 React의 필요성·비용, Vanilla TS·Vue·Svelte 비교, Rust/Wasm/WebGPU 메모리·실행 경계를 공식 문서에서 조사했다. [기술 조사](../research/FRAMEWORK_RUNTIME_REVIEW.md)에 주장별 정정·출처·확인 범위와 미실행 비교 계획을 기록했다. D-003/D-010의 React 선택은 D-011에서 재개방했다. 사용자 최종 선택은 비워 두며 앱 런타임은 전환하지 않았다.
 
 문서는 [전체 안내](../README.md)의 다섯 책임으로 이동했다. 기존 MCP 운영 계획도 development로 옮기고 경로 충돌을 정리했다. 코드 변경은 attribution 경로와 운영 문서가 요구하는 data/cache 비공개 경로의 deny 추가에 한정한다. 해당 캐시는 아직 없으며 실제 외부 수집은 하지 않았다. 과제 PDF·원자료는 커밋에서 제외한다. 프레임워크 성능·메모리 비교와 브라우저 가독성은 미검증이다.
+
+## 후속 검토 — 사용자 제공 ZIP과 slides.pdf
+
+[LOCAL_DATA](../specs/LOCAL_DATA.md)에 실제 파일·분모·schema·품질 한계와 조사 명령을 기록했다. 제안서 원본 부재와 데이터 부재라는 앞선 문구는 이전 시점의 기록이며 이제 해당 PDF와 ZIP 구조를 직접 확인했다. 2,700 라벨 형사 문서는 재현했으나 187/94/43 등 심급/피고인 후보 통계는 미재현이다. ZIP 한 개의 열기 실패와 보조 XML 표본 오류·메타데이터 분류/날짜 차이는 보류로 남겼다. 실제 개인정보/원문을 외부로 전송하거나 공개하지 않았다.
+
+변경 파일: `scripts/ingest/inventory.py`, `verify_inventory.py`, `research.sql`, `tests/data/test_inventory.py`, `package.json/package-lock.json`, `.gitignore`, `vite.config.ts`, data/scripts/tests README와 연관 명세/기록. 사용자 MCP_WORKFLOW의 별도 내용 변경은 보존하고 링크만 수정했다. 검사 결과는 FOUNDATION_STATUS에 있다.
